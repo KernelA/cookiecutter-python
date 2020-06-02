@@ -1,0 +1,11 @@
+{
+    "project_name": "test",
+    "project_slug": "{{cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "python_min_version": "3.6",
+    "project_major_version": "0",
+    "project_minor_version": "0",
+    "project_patch_version": "1",
+    "author": "None",
+    "license": "MIT",
+    "email": "None"
+}
