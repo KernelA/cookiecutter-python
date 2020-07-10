@@ -1,6 +1,6 @@
 root = true
 
-[*{.md,*.txt,*.py}]
+[*{.md,.txt,.py}]
 charset = utf-8
 indent_style = space
 trim_trailing_whitespace = true
