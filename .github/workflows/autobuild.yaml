@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+  workflow_dispatch:
+
+jobs:
+  Test template:
+    runs-on: ubuntu-20.04
+
+    env:
+        DEFAULT_TEMPLATE_DIR: test
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version:  '3.8'
+
+      - name: Install cookiecutter 
+        run: pip install cookiecutter~=1.7
+
+      - name: Render template
+        run: cookiecutter  --no-input .
+    
+      - name: Install dependecies
+        working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
+        run: pip install --no-cache-dir -r ./requirements.txt
+    
+      - name: Test logging
+        working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
+        run: pytest ./test_log.py
+
