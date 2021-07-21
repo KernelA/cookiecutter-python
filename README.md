@@ -1,3 +1,9 @@
-# Шаблон Cookiecutter для Python
+# Simple Cookiecutter template for Python project
 
-Шаблон Cookiecutter для Python. Необходимо создавать новые версии отсюда.
+# How to use
+
+Install [cookiecutter](https://github.com/cookiecutter/cookiecutter)
+
+```
+cookiecutter gh:KernelA/cookiecutter-python
+```
