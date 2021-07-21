@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Test template:
+  test-template:
     runs-on: ubuntu-20.04
 
     env:
