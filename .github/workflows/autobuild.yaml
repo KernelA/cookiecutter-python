@@ -36,3 +36,11 @@ jobs:
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
         run: pytest ./test_log.py
 
+      - name: Lint with pylinter
+        working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
+        run: pylint --exit-zero ./*.py
+
+      - name: Test setup
+        working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
+        run: pip install .
+
