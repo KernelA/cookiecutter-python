@@ -12,6 +12,11 @@ jobs:
   test-template:
     runs-on: ubuntu-20.04
 
+    strategy:
+      matrix:
+        as_package: ['yes', 'no']
+        remove_test_script: ['yes', 'no']
+
     env:
         DEFAULT_TEMPLATE_DIR: test
 
@@ -26,14 +31,18 @@ jobs:
         run: pip install cookiecutter~=1.7
 
       - name: Render template
-        run: cookiecutter  --no-input .
+        env:
+          COOKIECUTTER_CONTEXT_AS_PACKAGE: ${{ matrix.as_package }}
+          COOKIECUTTER_CONTEXT_REMOVE_TEST_SCRIPT: ${{ matrix.remove_test_script }}
+        run: python ./gen_with_context.py --out_dir .
     
       - name: Install dependecies
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
-        run: pip install --no-cache-dir -r ./requirements.txt
+        run: pip install --no-cache-dir -r ./requirements.txt -r ./requirements.dev.txt
     
       - name: Test logging
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
+        if: ${{ matrix.remove_test_script == 'no' }}
         run: pytest ./test_log.py
 
       - name: Lint with pylinter
@@ -41,6 +50,7 @@ jobs:
         run: pylint --exit-zero ./*.py
 
       - name: Test setup
+        if: ${{ matrix.as_package == 'yes' }}
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
         run: pip install .
 

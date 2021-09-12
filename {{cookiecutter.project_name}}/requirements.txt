@@ -1,5 +1,2 @@
-autopep8
-pylint
 tzlocal
 pyyaml
-pytest

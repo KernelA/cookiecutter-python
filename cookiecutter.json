@@ -7,5 +7,7 @@
     "project_patch_version": "1",
     "author": "None",
     "license": "MIT",
-    "email": "None"
+    "email": "None",
+    "as_package": ["no", "yes"],
+    "remove_test_script": ["yes", "no"]
 }
