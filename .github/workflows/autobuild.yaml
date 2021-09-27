@@ -34,7 +34,34 @@ jobs:
         env:
           COOKIECUTTER_CONTEXT_AS_PACKAGE: ${{ matrix.as_package }}
           COOKIECUTTER_CONTEXT_REMOVE_TEST_SCRIPT: ${{ matrix.remove_test_script }}
-        run: python ./gen_with_context.py --out_dir .
+        run: |
+          python ./gen_with_context.py --out_dir .
+          ls -l ./test
+
+      - name: Check if test file does not exist
+        if: ${{ matrix.remove_test_script == 'yes' }}
+        working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
+        run: |
+          FILE=./test_log.py
+          if [ -f "${FILE}" ]
+          then
+            echo "Found file ${FILE} but it must be deleted"
+            exit 1
+          fi
+        
+      - name: Check if package files do not exist
+        if: ${{ matrix.as_package == 'no' }}
+        working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
+        run: |
+          FILES=("setup.cfg" "pyproject.toml" "setup.py")
+          for file in $FILES
+          do
+            if [ -f "${file}" ]
+            then
+              echo "Found file ${file} but it must be deleted"
+              exit 1
+            fi
+          done
     
       - name: Install dependecies
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
