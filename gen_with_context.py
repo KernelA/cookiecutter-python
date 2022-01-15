@@ -29,7 +29,6 @@ def main(args):
     context = load_json("cookiecutter.json")
     extended_context = extend_context_form_env(args.env_prefix)
     context.update(extended_context)
-    print(context)
     cookiecutter(".", extra_context=context, no_input=True, output_dir=args.out_dir)
 
 

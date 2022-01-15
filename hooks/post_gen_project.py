@@ -8,3 +8,6 @@ if "{{ cookiecutter.as_package }}" == "no":
 
 if "{{ cookiecutter.remove_test_script }}" == "yes":
     os.remove("test_log.py")
+
+if "{{ cookiecutter.remove_dockerfile }}" == "yes":
+    os.remove("Dockerfile")

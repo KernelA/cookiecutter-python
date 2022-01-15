@@ -16,7 +16,7 @@ jobs:
       matrix:
         as_package: ['yes', 'no']
         remove_test_script: ['yes', 'no']
-
+        remove_dockerfile: ['yes', 'no']
     env:
         DEFAULT_TEMPLATE_DIR: test
 
@@ -62,6 +62,16 @@ jobs:
               exit 1
             fi
           done
+
+      - name: Check if Dockerfile does not exist
+        if: ${{ matrix.remove_dockerfile == 'yes' }}
+        run: |
+          FILE=./Dockerfile
+          if [ -f "${FILE}" ]
+          then
+            echo "Found file ${FILE} but it must be deleted"
+            exit 1
+          fi
     
       - name: Install dependecies
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}

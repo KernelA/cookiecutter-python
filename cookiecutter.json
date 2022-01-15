@@ -9,5 +9,6 @@
     "license": "MIT",
     "email": "None",
     "as_package": ["no", "yes"],
-    "remove_test_script": ["yes", "no"]
+    "remove_test_script": ["yes", "no"],
+    "remove_dockerfile": ["yes", "no"]
 }
