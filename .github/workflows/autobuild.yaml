@@ -14,55 +14,45 @@ jobs:
 
     strategy:
       matrix:
-        as_package: ['yes', 'no']
         remove_test_script: ['yes', 'no']
         remove_dockerfile: ['yes', 'no']
     env:
         DEFAULT_TEMPLATE_DIR: test
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
-          python-version:  '3.8'
+          python-version: '3.9'
+          cache: 'pip'
+          cache-dependency-path: |
+            ./{{cookiecutter.project_name}}/requirements.dev.txt
+            ./{{cookiecutter.project_name}}/requirements.txt
+            ./requirements.txt
 
       - name: Install cookiecutter 
-        run: pip install cookiecutter~=1.7
+        run: pip install -r ./requirements.txt
 
       - name: Render template
         env:
-          COOKIECUTTER_CONTEXT_AS_PACKAGE: ${{ matrix.as_package }}
+          COOKIECUTTER_CONTEXT_PROJECT_NAME: ${{ env.DEFAULT_TEMPLATE_DIR }}
           COOKIECUTTER_CONTEXT_REMOVE_TEST_SCRIPT: ${{ matrix.remove_test_script }}
         run: |
           python ./gen_with_context.py --out_dir .
-          ls -l ./test
 
       - name: Check if test file does not exist
         if: ${{ matrix.remove_test_script == 'yes' }}
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
         run: |
-          FILE=./test_log.py
+          FILE=./tests
+
           if [ -f "${FILE}" ]
           then
             echo "Found file ${FILE} but it must be deleted"
             exit 1
           fi
         
-      - name: Check if package files do not exist
-        if: ${{ matrix.as_package == 'no' }}
-        working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
-        run: |
-          FILES=("setup.cfg" "pyproject.toml" "setup.py")
-          for file in $FILES
-          do
-            if [ -f "${file}" ]
-            then
-              echo "Found file ${file} but it must be deleted"
-              exit 1
-            fi
-          done
-
       - name: Check if Dockerfile does not exist
         if: ${{ matrix.remove_dockerfile == 'yes' }}
         run: |
@@ -75,12 +65,12 @@ jobs:
     
       - name: Install dependecies
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
-        run: pip install --no-cache-dir -r ./requirements.txt -r ./requirements.dev.txt
+        run: pip install -r ./requirements.txt -r ./requirements.dev.txt
     
       - name: Test logging
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
         if: ${{ matrix.remove_test_script == 'no' }}
-        run: pytest ./test_log.py
+        run: pytest ./tests
 
       - name: Lint with pylinter
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
