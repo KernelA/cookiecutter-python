@@ -38,6 +38,7 @@ jobs:
         env:
           COOKIECUTTER_CONTEXT_PROJECT_NAME: ${{ env.DEFAULT_TEMPLATE_DIR }}
           COOKIECUTTER_CONTEXT_REMOVE_TEST_SCRIPT: ${{ matrix.remove_test_script }}
+          COOKIECUTTER_CONTEXT_REMOVE_DOCKERFILE: ${{ matrix.remove_dockerfile }}
         run: |
           python ./gen_with_context.py --out_dir .
 
