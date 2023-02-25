@@ -1,14 +1,13 @@
 {
-    "project_name": "test",
+    "project_name": "package",
     "project_slug": "{{cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-    "python_min_version": "3.6",
+    "python_min_version": "3.9",
     "project_major_version": "0",
     "project_minor_version": "0",
     "project_patch_version": "1",
     "author": "None",
     "license": "MIT",
     "email": "None",
-    "as_package": ["no", "yes"],
-    "remove_test_script": ["yes", "no"],
+    "remove_test_script": ["no", "yes"],
     "remove_dockerfile": ["yes", "no"]
 }

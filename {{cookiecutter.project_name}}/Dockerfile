@@ -6,12 +6,17 @@ WORKDIR /home/app
 
 RUN python -m venv /opt/venv
 
-COPY ./requirements.txt ./
-
 ENV PATH=/opt/venv/bin:${PATH}
 
 # Add adiitional instructions
-RUN --mount=type=cache,id=pip-cache,target=/root/.cache/pip pip install -r ./requirements.txt
+RUN --mount=type=cache,id=pip-cache,target=/root/.cache/pip \
+    --mount=type=bind,source=./requirements.txt,target./requirements.txt \
+    pip install -r ./requirements.txt
+
+RUN --mount=type=bind,source=./{{cookiecutter.project_name}},target./{{cookiecutter.project_name}} \
+    --mount=type=bind,source=./setup.py,target./setup.py \
+    --mount=type=bind,source=./pyproject.toml,target./pyproject.toml \
+    pip install .
 
 FROM python:${PYTHON_VERSION}-slim
 

@@ -1,10 +1,9 @@
 import datetime
 import logging
 
-from tzlocal import get_localzone
 
 class UTCFormatter(logging.Formatter):
-    LOCAL_TZ = get_localzone()
+    LOCAL_TZ = datetime.datetime.now().astimezone().tzinfo
 
     def formatTime(self, record, datefmt=None):
         utc = datetime.datetime.fromtimestamp(record.created, UTCFormatter.LOCAL_TZ)
