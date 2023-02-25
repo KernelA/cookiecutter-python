@@ -8,5 +8,5 @@ with open("requirements.txt", encoding="utf-8") as file:
             req_list.append(line)
 
 setup(install_requires=req_list,
-      packages=find_packages(["{{cookiecutter.project_name}}*"])
+      packages=find_packages(["{{cookiecutter.project_slug}}*"])
       )

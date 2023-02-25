@@ -1,4 +1,4 @@
-from {{cookiecutter.project_name}}.log_set import init_logging
+from {{cookiecutter.project_slug}}.log_set import init_logging
 
 
 def main():

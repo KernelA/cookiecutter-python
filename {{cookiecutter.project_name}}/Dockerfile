@@ -13,7 +13,7 @@ RUN --mount=type=cache,id=pip-cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements.txt,target./requirements.txt \
     pip install -r ./requirements.txt
 
-RUN --mount=type=bind,source=./{{cookiecutter.project_name}},target./{{cookiecutter.project_name}} \
+RUN --mount=type=bind,source=./{{cookiecutter.project_slug}},target./{{cookiecutter.project_slug}} \
     --mount=type=bind,source=./setup.py,target./setup.py \
     --mount=type=bind,source=./pyproject.toml,target./pyproject.toml \
     pip install .
