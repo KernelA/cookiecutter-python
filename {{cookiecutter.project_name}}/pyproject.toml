@@ -15,5 +15,5 @@ classifiers = [ "Intended Audience :: Developers", "Programming Language :: Pyth
 dynamic = ["dependencies"]
 
 
-[tool.autopep8]
-max-line-length = 100
+[tool.ruff]
+line-length = 120
