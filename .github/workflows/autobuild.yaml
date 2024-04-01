@@ -73,10 +73,6 @@ jobs:
         if: ${{ matrix.remove_test_script == 'no' }}
         run: pytest ./tests
 
-      - name: Lint with pylinter
-        working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
-        run: pylint --exit-zero ./*.py
-
       - name: Test setup
         if: ${{ matrix.as_package == 'yes' }}
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
