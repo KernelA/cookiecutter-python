@@ -3,8 +3,10 @@ import logging
 import pytest
 from {{cookiecutter.project_slug}}.log_set import init_logging
 
-init_logging("./log_settings.yaml")
 
+@pytest.fixture(scope="session", autouse=True)
+def init_logging_in_session():
+    init_logging("./log_settings.yaml")
 
 def test_logging(caplog):
     root_logger = logging.getLogger()
