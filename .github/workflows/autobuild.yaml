@@ -22,14 +22,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v4
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v4
         with:
           python-version: '3.9'
-          cache: 'pip'
-          cache-dependency-path: |
-            ./{{cookiecutter.project_name}}/requirements.dev.txt
-            ./{{cookiecutter.project_name}}/requirements.txt
-            ./requirements.txt
 
       - name: Install cookiecutter 
         run: pip install -r ./requirements.txt
@@ -66,15 +62,15 @@ jobs:
     
       - name: Install dependecies
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
-        run: pip install -r ./requirements.txt -r ./requirements.dev.txt
+        run: pdm install --frozen-lockfile --no-lock -d
     
       - name: Test logging
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
         if: ${{ matrix.remove_test_script == 'no' }}
-        run: pytest ./tests
+        run: pdm run pytest ./tests
 
       - name: Test setup
         if: ${{ matrix.as_package == 'yes' }}
         working-directory: ./${{ env.DEFAULT_TEMPLATE_DIR }}
-        run: pip install .
+        run: pdm install --no-lock --prod --no-editable
 
