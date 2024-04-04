@@ -1,9 +1,7 @@
 [build-system]
-requires = [
-    "setuptools>=61.0",
-    "wheel>=0.36"
-]
-build-backend = "setuptools.build_meta"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
 
 [project]
 name = "{{cookiecutter.project_slug}}"
@@ -12,7 +10,14 @@ requires-python = ">={{cookiecutter.python_min_version}}"
 version = "{{cookiecutter.project_major_version}}.{{cookiecutter.project_minor_version}}.{{cookiecutter.project_patch_version}}"
 readme = "README.md"
 classifiers = [ "Intended Audience :: Developers", "Programming Language :: Python :: 3" ]
-dynamic = ["dependencies"]
+dependencies = ["pyyaml"]
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "ruff~=0.3",
+    "pytest~=8.1",
+    "pre-commit~=3.7"
+]
 
 
 [tool.ruff]

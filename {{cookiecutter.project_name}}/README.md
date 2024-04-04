@@ -9,13 +9,15 @@
 
 ## How to run
 
+Install [pdm](https://daobook.github.io/pdm/)
+
 Install dependencies:
 ```
-pip install -r. /requirements.txt
+pdm install --no-self --prod
 ```
 
 For development:
 ```
-pip install -r ./requirements.txt -r ./requirements.dev.txt
+pdm install --no-self -d
 ```
 
