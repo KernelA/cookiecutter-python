@@ -5,7 +5,7 @@ build-backend = "pdm.backend"
 
 [project]
 name = "{{cookiecutter.project_slug}}"
-authors =[ { name="{{cookiecutter.author}}" {% if cookiecutter.email != 'None' %} , email="cookiecutter.email" {% endif %} }]
+authors =[ { name="{{cookiecutter.author}}" {% if cookiecutter.email != 'None' %} , email="{{cookiecutter.email}}" {% endif %} }]
 requires-python = ">={{cookiecutter.python_min_version}}"
 version = "{{cookiecutter.project_major_version}}.{{cookiecutter.project_minor_version}}.{{cookiecutter.project_patch_version}}"
 readme = "README.md"
