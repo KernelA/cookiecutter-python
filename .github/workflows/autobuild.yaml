@@ -10,7 +10,7 @@ on:
 
 jobs:
   test-template:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -20,7 +20,7 @@ jobs:
         DEFAULT_TEMPLATE_DIR: test
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v4

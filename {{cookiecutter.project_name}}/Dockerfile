@@ -36,9 +36,7 @@ ENV TZ="Europe/Moscow"
 
 WORKDIR /home/app
 
-ENV LOG_CONFIG=log_settings.yaml
-
-COPY ./main.py ./log_settings.yaml ./
+COPY ./main.py ./
 
 CMD python ./main.py
 
