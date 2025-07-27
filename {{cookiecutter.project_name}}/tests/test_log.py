@@ -6,7 +6,7 @@ from {{cookiecutter.project_slug}}.log_set import init_logging
 
 @pytest.fixture(scope="session", autouse=True)
 def init_logging_in_session():
-    init_logging("./log_settings.yaml")
+    init_logging()
 
 def test_logging(caplog):
     root_logger = logging.getLogger()
